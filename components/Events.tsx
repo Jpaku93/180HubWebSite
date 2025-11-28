@@ -19,7 +19,7 @@ const Events: React.FC<EventsProps> = ({ scrollOffset, onViewCalendar }) => {
 
   return (
     <section className="w-full bg-brand-black relative">
-      <div 
+      <div
         onClick={() => setIsExpanded(!isExpanded)}
         className={`
           relative w-full overflow-hidden 
@@ -29,27 +29,27 @@ const Events: React.FC<EventsProps> = ({ scrollOffset, onViewCalendar }) => {
         `}
       >
         {/* Background Image */}
-        <img 
-          src={event.image} 
-          alt={event.title} 
+        <img
+          src={event.image}
+          alt={event.title}
           className={`
             absolute inset-0 w-full h-full object-cover transition-transform duration-1000
             ${isExpanded ? 'scale-105 grayscale-0 opacity-60' : 'scale-100 grayscale opacity-50 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-70'}
           `}
         />
-        
+
         {/* Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-black/80 via-transparent to-transparent" />
 
-        {/* View Calendar Button (Top Left) */}
+        {/* View Calendar Button (Top Right) */}
         {onViewCalendar && (
-          <button 
+          <button
             onClick={(e) => {
               e.stopPropagation();
               onViewCalendar();
             }}
-            className="absolute top-8 left-8 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:bg-brand-lime hover:text-black hover:border-brand-lime transition-all duration-300 group/btn"
+            className="absolute top-8 right-8 z-30 flex items-center gap-2 bg-black/40 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-white hover:bg-brand-lime hover:text-black hover:border-brand-lime transition-all duration-300 group/btn"
           >
             <Calendar className="w-4 h-4" />
             <span className="hidden md:inline">View Calendar</span>
@@ -58,22 +58,22 @@ const Events: React.FC<EventsProps> = ({ scrollOffset, onViewCalendar }) => {
         )}
 
         {/* Content Container */}
-        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16">
+        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
           <div className="max-w-4xl relative z-10 tech-reveal">
-            
+
             {/* Header Badge */}
             <div className="flex items-center gap-4 mb-6">
-               <span className="bg-brand-orange text-black font-bold text-sm px-3 py-1 transform -skew-x-12 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
-                 NEXT UP
-               </span>
-               <span className="text-brand-lime font-mono text-xs tracking-widest border border-brand-lime/30 px-2 py-1 rounded-full bg-brand-black/50 backdrop-blur-md">
-                 {event.date} • 2024 SEASON
-               </span>
+              <span className="bg-brand-orange text-black font-bold text-sm px-3 py-1 transform -skew-x-12 shadow-[4px_4px_0px_rgba(0,0,0,1)]">
+                NEXT UP
+              </span>
+              <span className="text-brand-lime font-mono text-xs tracking-widest border border-brand-lime/30 px-2 py-1 rounded-full bg-brand-black/50 backdrop-blur-md">
+                {event.date} • 2024 SEASON
+              </span>
             </div>
 
             {/* Title */}
             <h2 className={`
-              text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white uppercase leading-[0.9] mb-4 
+              text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white uppercase leading-[0.9] mb-4 
               transition-all duration-500 drop-shadow-2xl
               ${isExpanded ? 'text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400' : 'group-hover:text-brand-orange'}
             `}>
@@ -82,15 +82,15 @@ const Events: React.FC<EventsProps> = ({ scrollOffset, onViewCalendar }) => {
 
             {/* Location & Details */}
             <div className={`flex items-center gap-6 text-gray-300 mb-6 transition-all duration-500 ${isExpanded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-80'}`}>
-               <div className="flex items-center gap-2">
-                 <MapPin className="w-5 h-5 text-brand-purple" />
-                 <span className="text-lg font-light tracking-wide">{event.location}</span>
-               </div>
-               <div className="h-1 w-1 bg-gray-500 rounded-full" />
-               <div className="flex items-center gap-2">
-                 <Calendar className="w-5 h-5 text-brand-lime" />
-                 <span className="text-lg font-light tracking-wide">Doors Open 7:00PM</span>
-               </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-brand-purple" />
+                <span className="text-lg font-light tracking-wide">{event.location}</span>
+              </div>
+              <div className="h-1 w-1 bg-gray-500 rounded-full" />
+              <div className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-brand-lime" />
+                <span className="text-lg font-light tracking-wide">Doors Open 7:00PM</span>
+              </div>
             </div>
 
             {/* Expanded Content */}

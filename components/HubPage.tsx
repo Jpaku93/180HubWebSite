@@ -14,7 +14,7 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
   const [showAllMinistries, setShowAllMinistries] = useState(false);
   const [calendarSynced, setCalendarSynced] = useState(false);
   const [selectedMinistry, setSelectedMinistry] = useState<Ministry | null>(null);
-  
+
   useEffect(() => {
     if (selectedMinistry) {
       window.scrollTo(0, 0);
@@ -230,29 +230,29 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
   return (
     <div className="min-h-screen bg-brand-black text-white animate-fadeIn">
       {/* Header / Hero Section */}
-      <div className="relative min-h-[85vh] py-32 overflow-hidden flex items-center justify-center bg-brand-charcoal">
+      <div className="relative min-h-[70vh] py-24 overflow-hidden flex items-center justify-center bg-brand-charcoal">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524601500432-1e1a4c71d692?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center grayscale opacity-40"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/50 to-transparent"></div>
-        
+
         <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <div className="inline-block px-3 py-1 mb-6 border border-brand-lime text-brand-lime text-xs font-bold tracking-widest uppercase rounded-full">
             The Ecosystem
           </div>
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-display font-bold tracking-tighter mb-10 text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-white to-brand-orange">
-            INSIDE<br/>THE HUB
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-r from-brand-purple via-white to-brand-orange">
+            INSIDE<br />THE HUB
           </h1>
 
           <div className="mb-12">
-             <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight uppercase text-white">
-               More Than a Night.<br/><span className="text-brand-orange">It’s a Movement.</span>
-             </h2>
-             <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-3xl mx-auto">
-               One Eighty Hub isn’t just a youth service you attend once a week. It’s a whole ecosystem of ministries where you can grow, serve, create, and reach people with the Gospel. Whether you’re musical, creative, bold on the streets, or quietly steady in the background, there’s a lane here with your name on it.
-             </p>
+            <h2 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight uppercase text-white">
+              More Than a Night.<br /><span className="text-brand-orange">It’s a Movement.</span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-3xl mx-auto">
+              One Eighty Hub isn’t just a youth service you attend once a week. It’s a whole ecosystem of ministries where you can grow, serve, create, and reach people with the Gospel. Whether you’re musical, creative, bold on the streets, or quietly steady in the background, there’s a lane here with your name on it.
+            </p>
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <button 
+            <button
               onClick={onBack}
               className="flex items-center gap-2 text-gray-400 hover:text-white uppercase tracking-widest text-sm font-bold transition-colors border border-white/20 hover:border-white px-6 py-3 rounded-full"
             >
@@ -277,91 +277,91 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
       {/* Google Calendar Integration & Up Next */}
       <section id="calendar-section" className="py-20 px-4 md:px-8 bg-brand-black flex flex-col items-center justify-center border-t border-white/10">
         <div className="max-w-7xl w-full">
-           <div className="flex items-end justify-between mb-8 border-b border-white/10 pb-4">
-              <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                Calendar
-              </h2>
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={() => setCalendarDark(!calendarDark)}
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors text-brand-lime flex items-center gap-2 text-xs font-mono"
+          <div className="flex items-end justify-between mb-8 border-b border-white/10 pb-4">
+            <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              Calendar
+            </h2>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setCalendarDark(!calendarDark)}
+                className="p-2 rounded-full hover:bg-white/10 transition-colors text-brand-lime flex items-center gap-2 text-xs font-mono"
+              >
+                {calendarDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                {calendarDark ? "LIGHT" : "DARK"}
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Calendar Column */}
+            <div className="lg:col-span-2 bg-brand-charcoal p-2 rounded-xl border border-white/10 shadow-[0_0_30px_rgba(139,0,255,0.1)]">
+              <div className={`relative w-full h-[600px] ${calendarDark ? 'bg-brand-black' : 'bg-white'} rounded-lg overflow-hidden transition-colors duration-300`}>
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=UTC&src=bW12cHNucmQ0bGIxaWJnanJkZ2c5ZTAwcDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%238E24AA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0"
+                  style={{
+                    borderWidth: 0,
+                    filter: calendarDark ? 'invert(1) hue-rotate(180deg)' : 'none',
+                    transition: 'filter 0.3s ease'
+                  }}
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  scrolling="no"
+                  title="One Eighty Hub Calendar"
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Up Next Column */}
+            <div className="lg:col-span-1 flex flex-col gap-4">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 bg-brand-orange rounded-full animate-pulse"></div>
+                <h3 className="text-xl font-bold uppercase tracking-wider text-white">Up Next</h3>
+              </div>
+
+              {upcomingEvents.map((event, i) => (
+                <div key={i} className="group bg-brand-charcoal p-6 rounded-lg border-l-4 border-brand-orange hover:bg-white/5 transition-all cursor-default">
+                  <span className="inline-block bg-brand-orange/20 text-brand-orange text-xs font-bold px-2 py-1 rounded mb-2">
+                    {event.date}
+                  </span>
+                  <h4 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-brand-orange transition-colors">
+                    {event.title}
+                  </h4>
+                  <div className="flex flex-col text-sm text-gray-400 gap-1 mt-2">
+                    <span className="flex items-center gap-2"><Calendar className="w-3 h-3" /> {event.time}</span>
+                    <span className="flex items-center gap-2"><div className="w-3 h-3 rounded-full border border-gray-500" /> {event.location}</span>
+                  </div>
+                </div>
+              ))}
+
+              <div className="mt-auto bg-gradient-to-br from-brand-purple/20 to-brand-black p-6 rounded-lg border border-brand-purple/30 text-center">
+                <h4 className="text-brand-purple font-bold uppercase tracking-widest mb-2">Don't Miss Out</h4>
+                <p className="text-xs text-gray-400 mb-4">Subscribe to our calendar to get notified automatically.</p>
+                <button
+                  onClick={handleSyncCalendar}
+                  disabled={calendarSynced}
+                  className={`
+                       w-full text-xs font-bold uppercase py-3 rounded transition-all duration-300 relative overflow-hidden group/sync
+                       ${calendarSynced
+                      ? 'bg-brand-lime text-black cursor-default border border-brand-lime shadow-[0_0_20px_rgba(204,255,0,0.3)]'
+                      : 'bg-brand-purple text-white hover:bg-white hover:text-brand-purple shadow-[0_0_15px_rgba(139,0,255,0.4)] hover:shadow-[0_0_25px_rgba(139,0,255,0.6)] animate-pulse'
+                    }
+                     `}
                 >
-                  {calendarDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-                  {calendarDark ? "LIGHT" : "DARK"}
+                  {calendarSynced ? (
+                    <span className="flex items-center justify-center gap-2 animate-fadeIn">
+                      <Check className="w-4 h-4" /> Synced!
+                    </span>
+                  ) : (
+                    <>
+                      <span className="relative z-10">Sync Calendar</span>
+                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/sync:translate-y-0 transition-transform duration-300 ease-out" />
+                    </>
+                  )}
                 </button>
               </div>
-           </div>
-           
-           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-             {/* Calendar Column */}
-             <div className="lg:col-span-2 bg-brand-charcoal p-2 rounded-xl border border-white/10 shadow-[0_0_30px_rgba(139,0,255,0.1)]">
-                <div className={`relative w-full h-[600px] ${calendarDark ? 'bg-brand-black' : 'bg-white'} rounded-lg overflow-hidden transition-colors duration-300`}>
-                  <iframe 
-                    src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=UTC&src=bW12cHNucmQ0bGIxaWJnanJkZ2c5ZTAwcDRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%238E24AA&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0" 
-                    style={{
-                      borderWidth: 0, 
-                      filter: calendarDark ? 'invert(1) hue-rotate(180deg)' : 'none',
-                      transition: 'filter 0.3s ease'
-                    }} 
-                    width="100%" 
-                    height="100%" 
-                    frameBorder="0" 
-                    scrolling="no"
-                    title="One Eighty Hub Calendar"
-                  ></iframe>
-                </div>
-             </div>
-
-             {/* Up Next Column */}
-             <div className="lg:col-span-1 flex flex-col gap-4">
-                <div className="flex items-center gap-2 mb-2">
-                   <div className="w-2 h-2 bg-brand-orange rounded-full animate-pulse"></div>
-                   <h3 className="text-xl font-bold uppercase tracking-wider text-white">Up Next</h3>
-                </div>
-                
-                {upcomingEvents.map((event, i) => (
-                  <div key={i} className="group bg-brand-charcoal p-6 rounded-lg border-l-4 border-brand-orange hover:bg-white/5 transition-all cursor-default">
-                    <span className="inline-block bg-brand-orange/20 text-brand-orange text-xs font-bold px-2 py-1 rounded mb-2">
-                      {event.date}
-                    </span>
-                    <h4 className="text-2xl font-display font-bold text-white mb-1 group-hover:text-brand-orange transition-colors">
-                      {event.title}
-                    </h4>
-                    <div className="flex flex-col text-sm text-gray-400 gap-1 mt-2">
-                       <span className="flex items-center gap-2"><Calendar className="w-3 h-3" /> {event.time}</span>
-                       <span className="flex items-center gap-2"><div className="w-3 h-3 rounded-full border border-gray-500" /> {event.location}</span>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="mt-auto bg-gradient-to-br from-brand-purple/20 to-brand-black p-6 rounded-lg border border-brand-purple/30 text-center">
-                   <h4 className="text-brand-purple font-bold uppercase tracking-widest mb-2">Don't Miss Out</h4>
-                   <p className="text-xs text-gray-400 mb-4">Subscribe to our calendar to get notified automatically.</p>
-                   <button 
-                     onClick={handleSyncCalendar}
-                     disabled={calendarSynced}
-                     className={`
-                       w-full text-xs font-bold uppercase py-3 rounded transition-all duration-300 relative overflow-hidden group/sync
-                       ${calendarSynced 
-                         ? 'bg-brand-lime text-black cursor-default border border-brand-lime shadow-[0_0_20px_rgba(204,255,0,0.3)]' 
-                         : 'bg-brand-purple text-white hover:bg-white hover:text-brand-purple shadow-[0_0_15px_rgba(139,0,255,0.4)] hover:shadow-[0_0_25px_rgba(139,0,255,0.6)] animate-pulse'
-                       }
-                     `}
-                   >
-                     {calendarSynced ? (
-                       <span className="flex items-center justify-center gap-2 animate-fadeIn">
-                         <Check className="w-4 h-4" /> Synced!
-                       </span>
-                     ) : (
-                       <>
-                         <span className="relative z-10">Sync Calendar</span>
-                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/sync:translate-y-0 transition-transform duration-300 ease-out" />
-                       </>
-                     )}
-                   </button>
-                </div>
-             </div>
-           </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -369,24 +369,24 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
       <div className="py-20 px-8 bg-brand-charcoal border-t border-white/5">
         <div className="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayedMinistries.map((item, idx) => (
-            <div 
-              key={idx} 
+            <div
+              key={idx}
               onClick={() => setSelectedMinistry(item)}
               className={`
-                group relative h-[450px] overflow-hidden bg-brand-black border-t-4 ${item.colorClass}
+                group relative h-[400px] overflow-hidden bg-brand-black border-t-4 ${item.colorClass}
                 shadow-xl transition-all duration-500 hover:-translate-y-2 cursor-pointer
               `}
             >
               {/* Background Image */}
-              <img 
-                src={item.image} 
-                alt={item.title} 
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110" 
+              <img
+                src={item.image}
+                alt={item.title}
+                className="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110"
               />
-              
+
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/70 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
-              
+
               {/* Scanline Overlay (Subtle) */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,4px_100%] pointer-events-none opacity-20" />
 
@@ -397,7 +397,7 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
 
               {/* Content Wrapper */}
               <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col justify-end">
-                
+
                 {/* Title */}
                 <h3 className="text-3xl font-display font-bold text-white uppercase mb-2 leading-none drop-shadow-lg transform transition-transform duration-500 group-hover:-translate-y-2">
                   {item.title}
@@ -413,7 +413,7 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
                 </div>
 
                 {/* Button */}
-                <button 
+                <button
                   className={`
                   w-fit text-xs font-bold uppercase tracking-widest flex items-center gap-2 
                   ${item.textAccent} border border-transparent 
@@ -430,75 +430,75 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
 
         {/* View All Button */}
         <div className="flex justify-center mt-12">
-            <button 
-                onClick={() => setShowAllMinistries(!showAllMinistries)}
-                className="group relative px-10 py-4 bg-transparent border border-white/20 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 rounded-sm"
-            >
-                <span className="relative z-10 flex items-center gap-2">
-                    {showAllMinistries ? 'View Less' : 'View All Teams'} 
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAllMinistries ? 'rotate-180' : ''}`} />
-                </span>
-            </button>
+          <button
+            onClick={() => setShowAllMinistries(!showAllMinistries)}
+            className="group relative px-10 py-4 bg-transparent border border-white/20 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 rounded-sm"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              {showAllMinistries ? 'View Less' : 'View All Teams'}
+              <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAllMinistries ? 'rotate-180' : ''}`} />
+            </span>
+          </button>
         </div>
 
       </div>
 
       {/* Merch Section */}
       <section className="py-24 bg-brand-black relative">
-         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] opacity-5"></div>
-         <div className="max-w-7xl mx-auto px-8 relative z-10">
-            <div className="flex flex-col md:flex-row items-end justify-between mb-12 border-b-2 border-brand-orange/30 pb-4">
-              <div>
-                <span className="text-brand-orange font-mono text-sm tracking-widest">OFFICIAL GEAR</span>
-                <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase mt-2">
-                  THE MERCH
-                </h2>
-              </div>
-              <button className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-brand-orange transition-colors">
-                View All Collection <ArrowRight className="w-4 h-4" />
-              </button>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] opacity-5"></div>
+        <div className="max-w-7xl mx-auto px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-12 border-b-2 border-brand-orange/30 pb-4">
+            <div>
+              <span className="text-brand-orange font-mono text-sm tracking-widest">OFFICIAL GEAR</span>
+              <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase mt-2">
+                THE MERCH
+              </h2>
             </div>
+            <button className="hidden md:flex items-center gap-2 text-sm font-bold uppercase tracking-widest hover:text-brand-orange transition-colors">
+              View All Collection <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {merchItems.map((item) => (
-                <div key={item.id} className="group cursor-pointer">
-                  <div className="relative h-[400px] bg-brand-charcoal overflow-hidden rounded-sm mb-4">
-                     <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-                     
-                     <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center">
-                        <button className="bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:bg-brand-orange transition-colors flex items-center gap-2 w-full justify-center shadow-lg">
-                           <ShoppingBag className="w-4 h-4" /> Add to Cart
-                        </button>
-                     </div>
-                  </div>
-                  <div className="flex justify-between items-start">
-                     <div>
-                       <h3 className="text-2xl font-display font-bold text-white uppercase group-hover:text-brand-orange transition-colors">{item.name}</h3>
-                       <p className="text-gray-500 text-sm">Limited Edition</p>
-                     </div>
-                     <span className="text-xl font-bold text-brand-lime font-mono">{item.price}</span>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {merchItems.map((item) => (
+              <div key={item.id} className="group cursor-pointer">
+                <div className="relative h-[350px] bg-brand-charcoal overflow-hidden rounded-sm mb-4">
+                  <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center">
+                    <button className="bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:bg-brand-orange transition-colors flex items-center gap-2 w-full justify-center shadow-lg">
+                      <ShoppingBag className="w-4 h-4" /> Add to Cart
+                    </button>
                   </div>
                 </div>
-              ))}
-            </div>
-            
-            <button className="md:hidden w-full mt-8 border border-white/20 py-4 text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
-               View All Collection
-            </button>
-         </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-2xl font-display font-bold text-white uppercase group-hover:text-brand-orange transition-colors">{item.name}</h3>
+                    <p className="text-gray-500 text-sm">Limited Edition</p>
+                  </div>
+                  <span className="text-xl font-bold text-brand-lime font-mono">{item.price}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button className="md:hidden w-full mt-8 border border-white/20 py-4 text-sm font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+            View All Collection
+          </button>
+        </div>
       </section>
 
       {/* CTA: Where Do You Fit? */}
       <div className="py-24 px-8 bg-brand-charcoal relative overflow-hidden border-t border-white/5">
-        
+
         {/* Decorative Blurs */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-purple/10 blur-[100px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-orange/10 blur-[100px] rounded-full pointer-events-none" />
 
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <h2 className="text-5xl md:text-7xl font-display font-bold mb-12 text-white">WHERE DO YOU FIT?</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-16">
             <div className="bg-white/5 p-6 rounded border-l-2 border-brand-purple">
               <span className="block text-xs font-bold text-gray-500 uppercase mb-1">Love Music?</span>
@@ -524,7 +524,7 @@ const HubPage: React.FC<HubPageProps> = ({ onBack }) => {
             </button>
           </div>
           <p className="mt-6 text-gray-500 text-sm">
-            Come early to a Hub Night and tell us "I'm keen to serve."<br/>
+            Come early to a Hub Night and tell us "I'm keen to serve."<br />
             We'll help you find your lane.
           </p>
         </div>
