@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, MapPin, ChevronDown, ArrowRight } from 'lucide-react';
 import { Event } from '../types';
+import { fetchCalendarEvents } from '../utils/calendar';
 
-const events: Event[] = [
-  { id: '1', title: 'Night of Worship', date: 'OCT 24', location: 'The Warehouse', image: 'https://images.unsplash.com/photo-1506459225024-1428097a7e18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' },
-  { id: '2', title: 'Street Outreach', date: 'NOV 02', location: 'Downtown Plaza', image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' },
-  { id: '3', title: 'Creative Workshop', date: 'NOV 15', location: 'Studio B', image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' },
+const defaultEvents: Event[] = [
+  { 
+    id: '1', 
+    title: 'Night of Worship', 
+    date: 'OCT 24', 
+    time: '7:00 PM',
+    location: 'The Warehouse', 
+    image: 'https://images.unsplash.com/photo-1506459225024-1428097a7e18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+    description: 'Join us for a night that sets the tone for the entire month. Expect high energy worship, real community, and a word that hits home. Bring the crew.'
+  },
+  { id: '2', title: 'Street Outreach', date: 'NOV 02', time: '10:00 AM', location: 'Downtown Plaza', image: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' },
+  { id: '3', title: 'Creative Workshop', date: 'NOV 15', time: '6:30 PM', location: 'Studio B', image: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' },
 ];
 
 interface EventsProps {
@@ -15,7 +24,47 @@ interface EventsProps {
 
 const Events: React.FC<EventsProps> = ({ scrollOffset, onViewCalendar }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const event = events[0]; // Only show the next event
+  const [event, setEvent] = useState<Event>(defaultEvents[0]);
+
+  useEffect(() => {
+    const loadNextEvent = async () => {
+      const fetchedEvents = await fetchCalendarEvents();
+      if (fetchedEvents.length > 0) {
+        const next = fetchedEvents[0];
+        setEvent({
+          id: 'ics-next',
+          title: next.title,
+          date: next.date,
+          time: next.time,
+          location: next.location,
+          description: next.description || 'Join us for a powerful time of connection and worship.',
+          image: 'https://images.unsplash.com/photo-1506459225024-1428097a7e18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80' // Keep the cool worship image
+        });
+      }
+    };
+    loadNextEvent();
+  }, []);
+
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const shareData = {
+      title: event.title,
+      text: `${event.title} - ${event.date} at ${event.time} @ ${event.location}. ${event.description || ''}`,
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log('Error sharing', err);
+      }
+    } else {
+      // Fallback to clipboard
+      navigator.clipboard.writeText(`${shareData.title}\n${shareData.text}\n${shareData.url}`);
+      alert('Event details copied to clipboard!');
+    }
+  };
 
   return (
     <section className="w-full bg-brand-black relative">
@@ -82,28 +131,42 @@ const Events: React.FC<EventsProps> = ({ scrollOffset, onViewCalendar }) => {
 
             {/* Location & Details */}
             <div className={`flex items-center gap-6 text-gray-300 mb-6 transition-all duration-500 ${isExpanded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-80'}`}>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5 text-brand-purple" />
-                <span className="text-lg font-light tracking-wide">{event.location}</span>
-              </div>
+              <a 
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-2 hover:text-brand-lime transition-colors group/map"
+              >
+                <MapPin className="w-5 h-5 text-brand-purple group-hover/map:scale-110 transition-transform" />
+                <span className="text-lg font-light tracking-wide underline decoration-brand-purple/50 underline-offset-4 group-hover/map:decoration-brand-lime">{event.location}</span>
+              </a>
               <div className="h-1 w-1 bg-gray-500 rounded-full" />
               <div className="flex items-center gap-2">
                 <Calendar className="w-5 h-5 text-brand-lime" />
-                <span className="text-lg font-light tracking-wide">Doors Open 7:00PM</span>
+                <span className="text-lg font-light tracking-wide">{event.time || '7:00 PM'}</span>
               </div>
             </div>
 
             {/* Expanded Content */}
             <div className={`
               overflow-hidden transition-all duration-700 ease-in-out border-l-2 border-brand-orange pl-6
-              ${isExpanded ? 'max-h-48 opacity-100 mt-4' : 'max-h-0 opacity-0'}
+              ${isExpanded ? 'max-h-96 opacity-100 mt-4' : 'max-h-0 opacity-0'}
             `}>
-              <p className="text-xl text-gray-200 font-light leading-relaxed max-w-2xl mb-6">
-                Join us for a night that sets the tone for the entire month. Expect high energy worship, real community, and a word that hits home. Bring the crew.
+              <p className="text-xl text-gray-200 font-light leading-relaxed max-w-2xl mb-6 whitespace-pre-line">
+                {event.description}
               </p>
-              <button className="bg-white text-black px-8 py-3 font-bold uppercase tracking-widest hover:bg-brand-lime transition-colors flex items-center gap-2">
-                Get Tickets <ArrowRight className="w-4 h-4" />
-              </button>
+              <div className="flex gap-4">
+                <button className="bg-white text-black px-8 py-3 font-bold uppercase tracking-widest hover:bg-brand-lime transition-colors flex items-center gap-2">
+                  Get Tickets <ArrowRight className="w-4 h-4" />
+                </button>
+                <button 
+                  onClick={handleShare}
+                  className="bg-transparent border border-white text-white px-8 py-3 font-bold uppercase tracking-widest hover:bg-white/10 transition-colors"
+                >
+                  Share
+                </button>
+              </div>
             </div>
 
           </div>

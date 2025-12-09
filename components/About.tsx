@@ -1,161 +1,342 @@
-import React from 'react';
-import { ArrowRight, Check, Heart, Shield, Users, Zap } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, ChevronDown, Mic2, Music, Camera, Megaphone, BookOpen, Coffee, Calendar, Zap, Heart } from 'lucide-react';
 import Footer from './Footer';
+import MinistryDetail from './MinistryDetail';
+import { Ministry } from '../types';
+
+const faqs = [
+  {
+    question: "WHAT IS ONE EIGHTY ?",
+    answer: "One Eighty is a movement dedicated to helping individuals break free from destructive behaviours and embark on a journey towards positive transformation."
+  },
+  {
+    question: "IS ONE EIGHTY A THERAPY OR TREATMENT PROGRAM ?",
+    answer: "No, One Eighty is not a therapy or treatment program. Instead, we provide support, guidance, and inspiration for individuals seeking to make positive changes in their lives. We encourage seeking professional help when needed."
+  },
+  {
+    question: "HOW DOES ONE EIGHTY HELP INDIVIDUALS ON THEIR JOURNEY TO TRANSFORMATION ?",
+    answer: "One Eighty offers support, resources, and inspiration through lived experiences, expert guidance, and community engagement, empowering individuals to create meaningful and positive changes in their lives."
+  },
+  {
+    question: "HOW CAN I GET INVOLVED WITH ONE EIGHTY ?",
+    answer: "There are several ways to get involved with One Eighty, including sharing your own story, participating in community events, spreading awareness on social media, and supporting our mission through donations or volunteering. Join us at Stockland Wetherill Park every Thursday at 7 pm."
+  }
+];
 
 const About: React.FC = () => {
+  const [showAllMinistries, setShowAllMinistries] = useState(false);
+  const [selectedMinistry, setSelectedMinistry] = useState<Ministry | null>(null);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedMinistry) {
+      window.scrollTo(0, 0);
+    }
+  }, [selectedMinistry]);
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const ministries: Ministry[] = [
+    {
+      id: 'worship',
+      icon: <Mic2 className="w-6 h-6" />,
+      title: "Worship & Singing",
+      desc: "Bring your voice. Bring your heart. Our worship team isn’t a performance. It’s a crew of people who love God’s presence.",
+      longDesc: `Our worship team isn’t a performance. It’s a crew of people who love God’s presence and want to lead others into it. 
+      
+      We believe worship is a weapon and a way of life. When we gather, we aren't just singing songs; we are setting the atmosphere for miracles, breakthroughs, and encounters with Jesus.`,
+      roles: [
+        "Lead worship from the platform and from the heart.",
+        "Grow in teamwork, spiritual discipline, and excellence.",
+        "Be part of moments where chains break and people meet Jesus.",
+        "Attend weekly rehearsals and spiritual pre-service prep."
+      ],
+      whoFor: "If you love singing, harmonies, or just find yourself worshipping at home, this is a space to develop that gift and use it for something eternal.",
+      colorClass: "border-brand-purple",
+      textAccent: "text-brand-purple",
+      image: "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'band',
+      icon: <Music className="w-6 h-6" />,
+      title: "Band & Musicians",
+      desc: "Drums, guitar, bass, keys. Tighten your skills with regular rehearsals, learn to flow, and play as one unit.",
+      longDesc: `Drums, guitar, bass, keys, tracks – this is your lane. Our band practices are about more than nailing the set list. It's about prophetic flow, musical excellence, and spiritual sensitivity.
+      
+      We are building a sound that defines a generation.`,
+      roles: [
+        "Tighten your skills with regular rehearsals.",
+        "Learn how to flow with worship, not just play songs.",
+        "Get coaching on timing, dynamics, and playing as one unit.",
+        "Serve faithfully on rotation for Hub Nights and events."
+      ],
+      whoFor: "You don’t have to be perfect to start. If you’re hungry to grow, willing to commit to practice, and want to use your instrument for God, there’s room for you.",
+      colorClass: "border-brand-orange",
+      textAccent: "text-brand-orange",
+      image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'digital-arts',
+      icon: <Camera className="w-6 h-6" />,
+      title: "Digital Arts",
+      desc: "Graphics, Video & Photography. Turn moments into visuals that move people and point them to hope.",
+      longDesc: `Turn moments into visuals that move people. If you’re into design, editing, or capturing the moment, the digital art ministry is where your creativity becomes part of the mission.
+      
+      We tell the story of what God is doing here through every pixel and frame.`,
+      roles: [
+        "Graphics: Create visuals for screens, socials, events, and series themes.",
+        "Video: Capture testimonies, recap nights, and create content that tells real stories.",
+        "Photography: Shoot services, outreaches, and behind-the-scenes moments.",
+        "Social Media: Help curate the online presence of the movement."
+      ],
+      whoFor: "You’ll learn how to think in story, colour, and composition – not just for aesthetics, but to point people to hope. Perfect for creatives, tech-heads, and visual storytellers.",
+      colorClass: "border-brand-lime",
+      textAccent: "text-brand-lime",
+      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'concerts',
+      icon: <Zap className="w-6 h-6" />,
+      title: "Concerts & Performances",
+      desc: "Dance, drama, spoken word. Events built to pull people from the street into an atmosphere of impact.",
+      longDesc: `High energy, high impact, high purpose. Our concerts and special events are built to pull people in from the street into an atmosphere they don’t expect from “church.”
+      
+      This is about using every art form to glorify God and grab attention.`,
+      roles: [
+        "Dance, drama, spoken word, live music and creative elements.",
+        "Regular rehearsals to sharpen flow, stage presence and unity.",
+        "A safe place to stretch your gift and try new creative ideas.",
+        "Planning and executing high-level productions."
+      ],
+      whoFor: "If you love the buzz of big nights, have a talent for performance arts, and want to be part of building experiences that change lives, this is where you plug in.",
+      colorClass: "border-brand-orange",
+      textAccent: "text-brand-orange",
+      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'outreach',
+      icon: <Megaphone className="w-6 h-6" />,
+      title: "Street Outreach",
+      desc: "Taking the Gospel outside the four walls. Street preaching, inviting, and praying with people where they are.",
+      longDesc: `From the building to the streets. One of the main heartbeat ministries of One Eighty Hub is taking the Gospel outside the four walls. We refuse to keep the Good News hidden.
+      
+      We go where the people are—parks, plazas, skate parks, and malls.`,
+      roles: [
+        "Street preaching, testimonies and one-on-one conversations.",
+        "Handing out flyers, inviting people, and praying with them where they are.",
+        "Learning how to share your story and the message of Jesus clearly and boldly.",
+        "Supporting the team through prayer and presence."
+      ],
+      whoFor: "You don’t have to be a loud preacher to join. We need people who talk, people who pray, people who support, and people who just show up and learn to love their city.",
+      colorClass: "border-brand-purple",
+      textAccent: "text-brand-purple",
+      image: "https://images.unsplash.com/photo-1472289065668-ce650ac443b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'altar-calls',
+      icon: <Heart className="w-6 h-6" />,
+      title: "Altar Calls & Support",
+      desc: "Pray with new believers, answer questions, and be a calm, faith-filled presence at the front lines of life change.",
+      longDesc: `Being there for the moment that matters most. When people respond to God, we don’t want them standing alone at the altar. This team serves at the most critical moment of our gatherings.`,
+      roles: [
+        "Pray with new believers and those rededicating their lives.",
+        "Help answer basic questions and connect them to follow-up.",
+        "Be a calm, faith-filled presence at the front lines of life change.",
+        "Distribute bibles and resources to new believers."
+      ],
+      whoFor: "If you carry compassion, are a good listener, and want to help people take their first steps with Jesus, this ministry is for you.",
+      colorClass: "border-brand-lime",
+      textAccent: "text-brand-lime",
+      image: "https://images.unsplash.com/photo-1629235738879-19969018e6c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'bible-studies',
+      icon: <BookOpen className="w-6 h-6" />,
+      title: "Bible Studies",
+      desc: "Deep roots. Strong lives. Learn how to read Scripture and wrestle with truth in a community that sharpens you.",
+      longDesc: `Deep roots. Strong lives. Real change. Bible studies are where the hype becomes habits and roots go deep. We move beyond surface-level faith into real understanding of the Word.`,
+      roles: [
+        "Learn how to read and apply Scripture to real-life situations.",
+        "Ask questions, wrestle with truth and grow with others.",
+        "Be discipled and eventually learn to disciple others.",
+        "Commit to a weekly or bi-weekly small group gathering."
+      ],
+      whoFor: "You don’t need to “know it all.” You just need a Bible, a notebook, and a willing heart to learn.",
+      colorClass: "border-brand-purple",
+      textAccent: "text-brand-purple",
+      image: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'open-homes',
+      icon: <Coffee className="w-6 h-6" />,
+      title: "Open Homes",
+      desc: "Faith grows better around tables, Real conversations, food, and family without judgement.",
+      longDesc: `Faith grows better around tables, not just rows. Open homes are our spaces for real conversations, food, and family. It's where the big crowd becomes a family.`,
+      roles: [
+        "Hang out, eat, laugh and build genuine friendships.",
+        "Talk about life, faith, struggles and wins without judgement.",
+        "Create an environment where newcomers feel safe and seen.",
+        "Host or co-host gatherings in homes or cafes."
+      ],
+      whoFor: "If you love hosting, cooking, or just talking with people, this is a beautiful way to serve and build community.",
+      colorClass: "border-brand-orange",
+      textAccent: "text-brand-orange",
+      image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      id: 'hub-events',
+      icon: <Calendar className="w-6 h-6" />,
+      title: "Hub Events",
+      desc: "Theme nights, training, and encounters that serve as a launchpad into purpose. Help plan the big nights.",
+      longDesc: `Gathered, focused, and built for impact. These are the big nights and key gatherings that anchor our calendar. Every Hub event is designed to be a launchpad into purpose.`,
+      roles: [
+        "A place where someone can encounter Jesus for the first time.",
+        "A space where believers can be challenged, trained and refreshed.",
+        "Serving here means helping plan, promote, set up, host, and execute.",
+        "Ensuring every night feels intentional from door to altar."
+      ],
+      whoFor: "For the organizers, the planners, the energetic hosts, and the hard workers who make the dream work.",
+      colorClass: "border-brand-lime",
+      textAccent: "text-brand-lime",
+      image: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    }
+  ];
+
+  const displayedMinistries = showAllMinistries ? ministries : ministries.slice(0, 6);
+
+  if (selectedMinistry) {
+    return <MinistryDetail ministry={selectedMinistry} onBack={() => setSelectedMinistry(null)} />;
+  }
+
   return (
     <div className="min-h-screen bg-brand-black text-white pt-24 animate-fadeIn">
       
       {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[40vh] flex items-center justify-center overflow-hidden py-10">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center grayscale opacity-40"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/50 to-transparent"></div>
         
         <div className="relative z-10 text-center max-w-4xl px-6 tech-reveal">
-          <h1 className="text-6xl md:text-8xl font-display font-bold uppercase tracking-tighter mb-4">
+          <h1 className="text-5xl md:text-7xl font-display font-bold uppercase tracking-tighter mb-4">
             About <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-purple">180 Hub</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 font-light tracking-wide border-t border-b border-brand-lime py-4 inline-block">
+          <p className="text-lg md:text-xl text-gray-300 font-light tracking-wide border-t border-b border-brand-lime py-4 inline-block">
             WHO WE ARE & WHERE WE'RE GOING
           </p>
         </div>
       </section>
 
-      {/* Intro / Who We Are */}
-      <section className="py-20 px-8 max-w-5xl mx-auto text-center tech-reveal delay-100">
-        <h2 className="text-4xl font-display font-bold uppercase mb-8 text-white">Turning Lives Around</h2>
-        <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
-          One Eighty Hub is a youth church movement turning lives around through Jesus, community, and real stories of change.
-          We’re here for the ones who feel stuck on repeat. For the ones who’ve seen too much, tried it all, and still feel empty.
-          We believe your life can do a complete 180° — not by hype, but by the power of God and a real church family.
-        </p>
-      </section>
-
-      {/* Vision & Mission Split */}
-      <section className="grid grid-cols-1 md:grid-cols-2 min-h-[600px]">
-        <div className="bg-brand-charcoal p-12 md:p-20 flex flex-col justify-center border-r border-white/5 tech-reveal delay-200">
-          <div className="w-16 h-16 bg-brand-orange/20 rounded-full flex items-center justify-center mb-6">
-            <Zap className="w-8 h-8 text-brand-orange" />
-          </div>
-          <h3 className="text-brand-orange font-bold tracking-widest uppercase mb-4">Our Vision</h3>
-          <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 leading-none">Destruction to Destiny</h2>
-          <p className="text-gray-300 text-lg leading-relaxed">
-            To see a generation turn 180° from destruction to destiny in Christ. 
-            We see young people set free from the things that are killing them — sin, shame, addiction, fear — and stepping into a future God designed.
-          </p>
-        </div>
-        <div className="bg-brand-black p-12 md:p-20 flex flex-col justify-center relative overflow-hidden tech-reveal delay-300">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/concrete-wall.png')] opacity-10"></div>
-          <div className="relative z-10">
-            <div className="w-16 h-16 bg-brand-purple/20 rounded-full flex items-center justify-center mb-6">
-              <Users className="w-8 h-8 text-brand-purple" />
-            </div>
-            <h3 className="text-brand-purple font-bold tracking-widest uppercase mb-4">Our Mission</h3>
-            <h2 className="text-4xl md:text-5xl font-display font-bold uppercase mb-6 leading-none">Gather, Disciple, Send</h2>
-            <p className="text-gray-300 text-lg leading-relaxed">
-              We gather, disciple, and send young people to live for Jesus in their homes, schools, and streets.
-              We’re not building a fan club. We’re building disciples who carry the Gospel into their everyday world.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* The Manifesto */}
-      <section className="py-24 px-8 bg-brand-black border-y border-white/10 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-lime/5 blur-[120px] rounded-full pointer-events-none" />
-        
-        <div className="max-w-4xl mx-auto tech-reveal">
+      {/* Ministries Grid */}
+      <section className="py-20 px-8 bg-brand-charcoal border-t border-white/5">
+        <div className="max-w-7xl mx-auto w-full">
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-7xl font-display font-bold uppercase mb-4">The Manifesto</h2>
-            <p className="text-gray-400">NOT A SLOGAN. A STANCE.</p>
-          </div>
-
-          <div className="space-y-6 text-xl md:text-3xl font-display uppercase leading-tight text-center">
-            {[
-              "We are not a brand. We are a movement.",
-              "We believe your past does not own your future.",
-              "We don’t hide the Gospel. We preach Jesus clearly and boldly.",
-              "We take church into the streets and the streets into church.",
-              "We don’t do perfect people. We do real people, real change.",
-              "We believe in the power of the Holy Spirit to break chains.",
-              "We refuse to watch a generation burn out without hope.",
-              "We choose truth over trends, conviction over convenience.",
-              "We love loud, pray hard, and stand with people in the mess.",
-              "We are here until the broken become builders of others."
-            ].map((line, i) => (
-              <p key={i} className="hover:text-brand-lime transition-colors duration-300 cursor-default">
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Story */}
-      <section className="py-20 px-8 bg-brand-charcoal">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="order-2 lg:order-1 tech-reveal">
-            <h2 className="text-4xl font-display font-bold uppercase mb-8">How It Started</h2>
-            <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-              One Eighty Hub was born out of a simple conviction:
-              <span className="text-white font-bold block my-2">“What if we actually believed God could flip a whole life around?”</span>
+            <h2 className="text-3xl md:text-5xl font-display font-bold uppercase mb-4">Our Teams</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              We don't just consume; we contribute. Find your place in one of our core ministries.
             </p>
-            <ul className="space-y-4 text-gray-400 border-l-2 border-brand-orange pl-6">
-              <li><strong className="text-white">The first night</strong> – a handful of people, nervous but desperate for God.</li>
-              <li><strong className="text-white">The first outreach</strong> – taking testimonies to the streets.</li>
-              <li><strong className="text-white">The breakthrough</strong> – packed altars, tears, healings.</li>
-              <li><strong className="text-white">The name</strong> – not slight improvements, complete turnarounds.</li>
-            </ul>
           </div>
-          <div className="order-1 lg:order-2 h-[500px] relative rounded-lg overflow-hidden group tech-reveal delay-200">
-            <img 
-              src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-              alt="Our Story" 
-              className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-            />
-            <div className="absolute inset-0 bg-brand-orange/20 mix-blend-overlay" />
-          </div>
-        </div>
-      </section>
 
-      {/* Beliefs Grid */}
-      <section className="py-24 px-8 bg-brand-black">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-display font-bold uppercase mb-12 text-center">What We Believe</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: "Jesus Changes Lives", desc: "We believe Jesus is the Son of God, died for our sin and rose again. Anyone who calls on His name can be saved.", color: "border-brand-purple" },
-              { title: "The Bible Leads Us", desc: "We build our lives on the Word of God, not just feelings or trends. The Bible is our final authority.", color: "border-brand-orange" },
-              { title: "Spirit Empowered", desc: "We believe the Holy Spirit fills and empowers believers to live holy, bold, and fruitful lives.", color: "border-brand-lime" },
-              { title: "Church is Family", desc: "We’re not here to perform. We’re here to belong, grow, and carry each other through the highs and lows.", color: "border-brand-purple" },
-              { title: "Value & Purpose", desc: "No one is too far gone. Every person carries God-given value and a calling worth fighting for.", color: "border-brand-orange" },
-            ].map((item, i) => (
-              <div key={i} className={`bg-brand-charcoal p-8 rounded border-t-4 ${item.color} hover:-translate-y-2 transition-transform duration-300`}>
-                <h3 className="text-2xl font-display font-bold uppercase mb-4">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
+            {displayedMinistries.map((item, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => setSelectedMinistry(item)}
+                className={`
+                  group relative h-[450px] overflow-hidden bg-brand-black border-t-4 ${item.colorClass}
+                  shadow-xl transition-all duration-500 hover:-translate-y-2 cursor-pointer
+                `}
+              >
+                {/* Background Image */}
+                <img 
+                  src={item.image} 
+                  alt={item.title} 
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-50 grayscale group-hover:grayscale-0 group-hover:opacity-80 group-hover:scale-110" 
+                />
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/70 to-transparent opacity-90 group-hover:opacity-80 transition-opacity duration-500" />
+                
+                {/* Icon Badge */}
+                <div className={`absolute top-6 right-6 p-3 bg-black/50 backdrop-blur-md rounded-full border border-white/10 ${item.textAccent} transition-transform duration-500 group-hover:scale-110`}>
+                  {item.icon}
+                </div>
+
+                {/* Content Wrapper */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 flex flex-col justify-end">
+                  
+                  {/* Title */}
+                  <h3 className="text-3xl font-display font-bold text-white uppercase mb-2 leading-none drop-shadow-lg transform transition-transform duration-500 group-hover:-translate-y-2">
+                    {item.title}
+                  </h3>
+
+                  {/* Subtitle / Description (Reveals on Hover) */}
+                  <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500 ease-out">
+                    <div className="overflow-hidden">
+                      <p className="text-gray-300 text-sm leading-relaxed mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Button */}
+                  <button 
+                    className={`
+                    w-fit text-xs font-bold uppercase tracking-widest flex items-center gap-2 
+                    ${item.textAccent} border border-transparent 
+                    group-hover:border-${item.colorClass.replace('border-', '')} 
+                    group-hover:px-4 group-hover:py-2 group-hover:bg-white/5 group-hover:rounded-sm
+                    transition-all duration-300
+                  `}>
+                    View Details <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>
+
+          {/* View All Button */}
+          <div className="flex justify-center mt-12">
+              <button 
+                  onClick={() => setShowAllMinistries(!showAllMinistries)}
+                  className="group relative px-10 py-4 bg-transparent border border-white/20 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 rounded-sm"
+              >
+                  <span className="relative z-10 flex items-center gap-2">
+                      {showAllMinistries ? 'View Less' : 'View All Teams'} 
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAllMinistries ? 'rotate-180' : ''}`} />
+                  </span>
+              </button>
+          </div>
         </div>
       </section>
 
-      {/* What to Expect */}
-      <section className="py-20 px-8 bg-gradient-to-br from-brand-charcoal to-brand-black border-y border-white/5">
+      {/* FAQ Section */}
+      <section className="py-24 px-8 bg-brand-black border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-display font-bold uppercase mb-12 text-center">What To Expect</h2>
-          <div className="space-y-8">
-            {[
-              { num: "01", title: "Arrive & Hang Out", desc: "Doors open early. Music, laughter. Come as you are — hoodies, sneakers, whatever." },
-              { num: "02", title: "Worship", desc: "Loud, honest, and Jesus-focused. Raised hands, some tears. No pressure." },
-              { num: "03", title: "The Word", desc: "Straight-up Bible. We talk about sin, hope, identity, calling, eternity." },
-              { num: "04", title: "Altar Call", desc: "A chance to respond. Give your life to Jesus, rededicate, or ask for prayer." },
-              { num: "05", title: "After Party", desc: "Hang out, meet people, open homes invites. Don't disappear after the amen." },
-            ].map((step, i) => (
-              <div key={i} className="flex gap-6 items-start tech-reveal">
-                <span className="text-3xl font-display font-bold text-brand-lime opacity-50">{step.num}</span>
-                <div>
-                  <h3 className="text-2xl font-bold uppercase mb-2">{step.title}</h3>
-                  <p className="text-gray-400">{step.desc}</p>
+          <h2 className="text-4xl md:text-6xl font-display font-bold uppercase mb-12 text-center text-white">
+            FAQs
+          </h2>
+          <div className="space-y-2">
+            {faqs.map((faq, index) => (
+              <div key={index} className="border-b border-white/10 last:border-0">
+                <button 
+                  onClick={() => toggleFaq(index)} 
+                  className="w-full py-6 flex items-center justify-between text-left focus:outline-none group"
+                >
+                  <span className="font-display font-bold uppercase text-lg md:text-xl text-white group-hover:text-brand-lime transition-colors pr-8">
+                    {faq.question}
+                  </span>
+                  <div className={`p-2 rounded-full border border-white/20 transition-all duration-300 shrink-0 ${openFaqIndex === index ? 'bg-brand-lime text-black rotate-180' : 'text-white'}`}>
+                    <ChevronDown className="w-5 h-5" />
+                  </div>
+                </button>
+                <div className={`grid transition-all duration-300 ease-in-out ${openFaqIndex === index ? 'grid-rows-[1fr] opacity-100 pb-8' : 'grid-rows-[0fr] opacity-0'}`}>
+                  <div className="overflow-hidden">
+                    <p className="text-gray-400 leading-relaxed text-base md:text-lg">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -163,44 +344,17 @@ const About: React.FC = () => {
         </div>
       </section>
 
-      {/* Leadership & Safety */}
-      <section className="py-20 px-8 bg-brand-black">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="bg-brand-charcoal p-10 rounded border border-white/5 tech-reveal">
-             <Shield className="w-10 h-10 text-brand-purple mb-6" />
-             <h3 className="text-2xl font-display font-bold uppercase mb-4">Leadership & Covering</h3>
-             <p className="text-gray-400 mb-4">
-               One Eighty Hub doesn’t float on its own. We’re under the covering of our local church and pastors, led by a team committed to truth and care.
-             </p>
-             <ul className="list-disc list-inside text-gray-500 text-sm space-y-2">
-               <li>Youth leaders who walk with people through real issues.</li>
-               <li>Wider church family backing in prayer and accountability.</li>
-             </ul>
-          </div>
-          <div className="bg-brand-charcoal p-10 rounded border border-white/5 tech-reveal delay-100">
-             <Heart className="w-10 h-10 text-brand-orange mb-6" />
-             <h3 className="text-2xl font-display font-bold uppercase mb-4">Culture & Safety</h3>
-             <p className="text-gray-400 mb-4">
-               We’re serious about creating a healthy, safe environment. No bullying, no harassment. Leaders are held to a higher standard.
-             </p>
-             <p className="text-gray-500 text-sm">
-               We want this to be a place where you can be honest, process life, and grow without fear.
-             </p>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-32 px-8 text-center bg-[url('https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center grayscale relative">
+      <section className="min-h-[40vh] flex items-center justify-center py-20 px-8 text-center bg-[url('https://images.unsplash.com/photo-1533174072545-e8d4aa97edf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center grayscale relative">
         <div className="absolute inset-0 bg-brand-purple/90 mix-blend-multiply"></div>
         <div className="relative z-10 max-w-3xl mx-auto tech-reveal">
-          <h2 className="text-5xl md:text-7xl font-display font-bold uppercase text-white mb-6">What's Your Next Step?</h2>
-          <p className="text-xl text-white/80 mb-10">Your story doesn't have to stay where it is. If you're ready for a 180°, we'd love to meet you.</p>
+          <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-white mb-6">What's Your Next Step?</h2>
+          <p className="text-lg md:text-xl text-white/80 mb-10">Your story doesn't have to stay where it is. If you're ready for a 180°, we'd love to meet you.</p>
           <div className="flex flex-col md:flex-row gap-6 justify-center">
-            <button className="bg-white text-black px-10 py-4 font-bold uppercase tracking-widest hover:bg-brand-lime transition-colors">
+            <button className="bg-white text-black px-8 py-4 md:px-10 font-bold uppercase tracking-widest hover:bg-brand-lime transition-colors">
               Come to a Night
             </button>
-            <button className="bg-transparent border-2 border-white text-white px-10 py-4 font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+            <button className="bg-transparent border-2 border-white text-white px-8 py-4 md:px-10 font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
               Ask a Question
             </button>
           </div>

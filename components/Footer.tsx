@@ -4,14 +4,14 @@ import { ArrowRight, Instagram, Youtube, Twitter, Music } from 'lucide-react';
 const Footer: React.FC = () => {
   return (
     <footer className="relative bg-brand-black border-t border-white/10 pt-20 pb-10 px-8 overflow-hidden">
-
+      
       {/* Bottom Glow */}
       <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-brand-purple/20 to-transparent pointer-events-none" />
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-
+        
         <div className="col-span-1 md:col-span-2 tech-reveal">
-          <h2 className="text-5xl font-display font-bold text-white mb-6 uppercase leading-tight glitch-hover">
+          <h2 className="text-5xl font-display font-bold text-white mb-6 uppercase leading-tight">
             Ready to<br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-lime to-brand-orange">Move?</span>
           </h2>
@@ -45,10 +45,10 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="tech-reveal delay-200">
-          <h4 className="text-white font-bold uppercase tracking-wider mb-6 border-b-2 border-brand-orange inline-block pb-1">Contact</h4>
-          <p className="text-gray-300 text-sm mb-2 font-light">1/78 Hassall Street Wetherill Park NSW 2164</p>
-          <p className="text-gray-300 text-sm mb-2 font-light">hello@themovement.church</p>
-          <p className="text-brand-lime text-sm font-mono">0433 101 622</p>
+           <h4 className="text-white font-bold uppercase tracking-wider mb-6 border-b-2 border-brand-orange inline-block pb-1">Contact</h4>
+           <p className="text-gray-300 text-sm mb-2 font-light">123 Urban Ave, City Center</p>
+           <p className="text-gray-300 text-sm mb-2 font-light">hello@themovement.church</p>
+           <p className="text-brand-lime text-sm font-mono">(555) 123-4567</p>
         </div>
       </div>
 

@@ -15,49 +15,49 @@ interface CommunityProps {
 const Community: React.FC<CommunityProps> = ({ scrollOffset }) => {
   return (
     <section className="py-20 px-8 bg-gradient-to-b from-brand-charcoal to-brand-black overflow-hidden relative">
-
+      
       {/* Background Accents */}
       <div className="absolute left-1/2 top-1/3 -translate-x-1/2 w-[80vw] h-[400px] bg-brand-lime/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="relative z-10 mb-12 tech-reveal">
-        <h2 className="text-4xl font-display font-bold text-white mb-2 glitch-hover cursor-default w-fit">COMMUNITY</h2>
+        <h2 className="text-4xl font-display font-bold text-white mb-2 cursor-default w-fit">COMMUNITY</h2>
         <p className="text-brand-lime font-mono text-sm tracking-widest">PEOPLE OVER PROGRAMS</p>
       </div>
 
       {/* B&W Photo Grid with Hover Color */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-12 h-80 relative z-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-16 h-96 relative z-10">
         <div className="tech-reveal delay-100 col-span-2 row-span-2 relative group overflow-hidden">
           <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 1" />
           <div className="absolute inset-0 bg-brand-purple/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
         </div>
         <div className="tech-reveal delay-200 col-span-1 row-span-1 relative group overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 2" />
-          <div className="absolute inset-0 bg-brand-lime/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
+           <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 2" />
+           <div className="absolute inset-0 bg-brand-lime/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
         </div>
         <div className="tech-reveal delay-300 col-span-1 row-span-2 relative group overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 3" />
-          <div className="absolute inset-0 bg-brand-orange/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
+           <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 3" />
+           <div className="absolute inset-0 bg-brand-orange/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
         </div>
         <div className="tech-reveal delay-400 col-span-1 row-span-1 relative group overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 4" />
-          <div className="absolute inset-0 bg-brand-purple/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
+           <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt="Community 4" />
+           <div className="absolute inset-0 bg-brand-purple/40 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay" />
         </div>
       </div>
 
       {/* Testimony Strip */}
       <div className="flex gap-6 overflow-x-auto pb-8 scrollbar-hide tech-reveal delay-500 snap-x snap-mandatory px-4">
         {testimonies.map((t, index) => (
-          <div
-            key={t.id}
+          <div 
+            key={t.id} 
             className="snap-center min-w-[300px] bg-brand-charcoal/50 backdrop-blur-md p-6 rounded-lg border-t-4 border-white/10 hover:border-brand-orange hover:bg-brand-charcoal transition-all shadow-lg transform hover:-translate-y-1"
             style={{ borderColor: index % 2 === 0 ? '#8B00FF' : '#FF5E00' }} // Alternating top border colors
           >
             <div className="flex items-center gap-4 mb-4">
               <div className="p-[2px] rounded-full bg-gradient-to-br from-brand-orange to-brand-purple">
-                <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-black grayscale hover:grayscale-0 transition-all" />
+                 <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full border-2 border-black grayscale hover:grayscale-0 transition-all" />
               </div>
               <div>
-                <div className="font-bold text-white glitch-hover">{t.name}</div>
+                <div className="font-bold text-white">{t.name}</div>
                 <div className="text-xs text-brand-lime">{t.handle}</div>
               </div>
             </div>

@@ -10,7 +10,7 @@ interface NavigationProps {
 }
 
 const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab, isNavVisible, isAtTop, onNavClick }) => {
-  
+
   const handleClick = (key: string) => {
     setActiveTab(NavItem[key as keyof typeof NavItem]);
     if (onNavClick) {
@@ -18,35 +18,44 @@ const Navigation: React.FC<NavigationProps> = ({ activeTab, setActiveTab, isNavV
     }
   };
 
+  const getRoutePath = (key: string): string => {
+    if (key === 'HOME') return '/';
+    if (key === 'HUB') return '/hub';
+    if (key === 'ABOUT') return '/about';
+    return '/';
+  };
+
   return (
     <>
       {/* Top Nav Bar */}
-      <nav 
-        className={`fixed top-0 left-0 right-0 h-24 flex items-center justify-between px-8 md:px-12 z-50 transition-all duration-300 transform ${
-          isNavVisible ? 'translate-y-0' : '-translate-y-full'
-        } ${
-          !isAtTop ? 'bg-brand-black/95 backdrop-blur-md border-b border-white/10 shadow-xl' : 'bg-transparent'
-        }`}
+      <nav
+        className={`fixed top-0 left-0 right-0 h-24 flex items-center justify-between px-8 md:px-12 z-50 transition-all duration-300 transform ${isNavVisible ? 'translate-y-0' : '-translate-y-full'
+          } ${!isAtTop ? 'bg-brand-black/95 backdrop-blur-md border-b border-white/10 shadow-xl' : 'bg-transparent'
+          }`}
       >
         <div className={`absolute inset-0 bg-gradient-to-b from-black/80 to-transparent pointer-events-none transition-opacity duration-500 ${!isAtTop ? 'opacity-0' : 'opacity-100'}`} />
 
-        <div className="flex flex-col items-center leading-none select-none cursor-pointer relative z-10" onClick={() => handleClick('HOME')}>
+        <a
+          href="/"
+          onClick={(e) => { e.preventDefault(); handleClick('HOME'); }}
+          className="flex flex-col items-center leading-none select-none cursor-pointer relative z-10"
+        >
           <span className="font-display font-bold text-2xl tracking-tighter text-white">180</span>
           <span className="font-display font-bold text-2xl tracking-tighter text-brand-purple">HUB</span>
-        </div>
+        </a>
 
         <div className="flex items-center gap-8 relative z-10">
           <div className="hidden md:flex gap-8">
             {Object.keys(NavItem).map((key) => (
-              <button
+              <a
                 key={key}
-                onClick={() => handleClick(key)}
-                className={`text-sm font-bold uppercase tracking-widest transition-all ${
-                  activeTab === key ? 'text-brand-orange' : 'text-gray-300 hover:text-white'
-                }`}
+                href={getRoutePath(key)}
+                onClick={(e) => { e.preventDefault(); handleClick(key); }}
+                className={`text-sm font-bold uppercase tracking-widest transition-all ${activeTab === key ? 'text-brand-orange' : 'text-gray-300 hover:text-white'
+                  }`}
               >
                 {key}
-              </button>
+              </a>
             ))}
           </div>
 

@@ -6,6 +6,19 @@ export interface Event {
   date: string;
   location: string;
   image: string;
+  description?: string;
+  time?: string;
+}
+
+export interface CalendarEvent {
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  rawDate: Date;
+  image?: string;
+  isAllDay?: boolean;
 }
 
 export interface Product {
